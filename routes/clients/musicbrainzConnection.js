@@ -15,7 +15,6 @@ const getArtistInfo = async (req, res) => {
 
   // try making the first API call - musicbrainz
   try{
-
     let apiUrl = `${config.musicbrainz_base}ws/2/artist/${mbid}?inc=url-rels+release-groups&fmt=json`;
     console.log(apiUrl);
     // first api call - fetch artist information from musicbrainz

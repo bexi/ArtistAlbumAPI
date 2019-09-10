@@ -5,7 +5,7 @@ const config = require('../../config');
 * Returns album information with covers
 * Return Promise [{title, id, image}, ...]
 */
-async function getAlbumCovers(artist){
+const getAlbumCovers = async (artist) => {
   // find release-groups from artist data
   let releaseGroups = artist.data['release-groups'];
 
@@ -31,8 +31,8 @@ async function getAlbumCovers(artist){
         return null;
       }
     });
-  }catch{
-    //console.log("Error when fetching album covers");
+  }catch(e){
+    console.log(e);
   }
 
   if(covers !== undefined){
@@ -42,7 +42,7 @@ async function getAlbumCovers(artist){
   return albums;
 }
 
-function addCoversToAlbum(albums, covers){
+const addCoversToAlbum = (albums, covers) => {
   return albums.map(function(album){
     let foundCover = covers.find(cover => cover !== null && cover.id == album.id);
 
@@ -57,7 +57,7 @@ function addCoversToAlbum(albums, covers){
 * Returns the last segment from an url
 * Example: www.example/hello/123 --> 123
 */
-function getLastPartOfUrl(url){
+const getLastPartOfUrl = (url) => {
   let parts = url.split('/');
   let lastPart = parts[parts.length-1];
 

@@ -4,7 +4,7 @@ const config = require('../../config');
 /**
 * Get the description from wikipedia API
 */
-async function getDescription(artist){
+const getDescription = async (artist) => {
   try{
     let wikipediaID = await getWikipediaID(artist);
     let wikipediaUrl = `${config.wikipedia_endpoint}${wikipediaID}`
@@ -26,8 +26,7 @@ async function getDescription(artist){
 * 2) directly find it in the artist data
 * If the ID is not found return null
 */
-async function getWikipediaID (artist){
-
+const getWikipediaID = async (artist) => {
   // find the wikidata-ID from the first api-response
   let wikiDataRelation = artist.data.relations.filter(obj => obj.type === 'wikidata');
   let wikipediaRelation = artist.data.relations.filter(obj => obj.type === 'wikipedia');
@@ -58,12 +57,11 @@ async function getWikipediaID (artist){
   throw new Error({error: 'No wikipediaID was found'})
 }
 
-
 /**
 * Returns the last segment from an url
 * Example: www.example/hello/123 --> 123
 */
-function getLastPartOfUrl(url){
+const getLastPartOfUrl = (url) => {
   let parts = url.split('/');
   let lastPart = parts[parts.length-1];
 
