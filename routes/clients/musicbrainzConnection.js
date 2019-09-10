@@ -11,7 +11,7 @@ const getArtistInfo = async (req, res) => {
   let mbid = req.params.mbid;
   let artistInformation;
   let description = null;
-  let albums = null;
+  let albumCovers = null;
 
   // try making the first API call - musicbrainz
   try{
@@ -23,28 +23,20 @@ const getArtistInfo = async (req, res) => {
     return;
   }
 
-  // try making the second and third API calls (WikiData/Wikipedia and coverArtArchive)
-  // start api calls (in parallel), await the slowest api call
-  let description_promise = getDescription(artistInformation);
-  let albumCovers_promise = getAlbumCovers(artistInformation);
-
-  try{
-    description = await description_promise;
-  }catch(e){
-    console.log(e);
-  }
-
-  try{
-    albums = await albumCovers_promise;
-  }catch(e){
-    console.log(e);
-  }
+  // paralell requests
+  let promises = [
+    getDescription(artistInformation),
+    getAlbumCovers(artistInformation)
+  ];
+  let promisesRes = await axios.all(promises);
+  description = promisesRes[0];
+  albumCovers = promisesRes[1];
 
   // send back the mashup data to user
   res.status(200).send({
     'mbid': mbid,
     'description': description,
-    'albums': albums
+    'albums': albumCovers
   });
 }
 
