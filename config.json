@@ -1,0 +1,7 @@
+{
+    "musicbrainz_base": "http://musicbrainz.org/",
+    "wikidata_base": "https://www.wikidata.org/",
+    "wikipedia_endpoint": "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=true&redirects=true&titles=",
+    "cover_art_endpoint": "http://coverartarchive.org/release-group/"
+
+}

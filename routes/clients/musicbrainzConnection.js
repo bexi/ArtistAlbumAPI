@@ -2,8 +2,7 @@ const axios = require('axios');
 
 const getDescription = require('./wikiConnection');
 const getAlbumCovers = require('./coverArtConnection');
-//const getAlbums = require('./musicConnection');
-//const config = require('./config');
+const config = require('../../config');
 
 /**
 * Return Promise {mbid, description, albums}
@@ -16,7 +15,9 @@ const getArtistInfo = async (req, res) => {
 
   // try making the first API call - musicbrainz
   try{
-    let apiUrl = `http://musicbrainz.org/ws/2/artist/${mbid}?inc=url-rels+release-groups&fmt=json`;
+
+    let apiUrl = `${config.musicbrainz_base}ws/2/artist/${mbid}?inc=url-rels+release-groups&fmt=json`;
+    console.log(apiUrl);
     // first api call - fetch artist information from musicbrainz
     artistInformation = await axios.get(apiUrl);
   }catch(e){
@@ -31,13 +32,13 @@ const getArtistInfo = async (req, res) => {
   try{
     description = await description_promise;
   }catch(e){
-    console.log("Error with get description: ", e);
+    console.log(e);
   }
 
   try{
     albums = await albumCovers_promise;
   }catch(e){
-    console.log("Error with get getAlbumCovers: ", e);
+    console.log(e);
   }
 
   // send back the mashup data to user

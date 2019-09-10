@@ -1,4 +1,5 @@
 const axios = require('axios');
+const config = require('../../config');
 
 /**
 * Get the description from wikipedia API
@@ -6,7 +7,7 @@ const axios = require('axios');
 async function getDescription(artist){
   try{
     let wikipediaID = await getWikipediaID(artist);
-    let wikipediaUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=extracts&exintro=true&redirects=true&titles=${wikipediaID}`
+    let wikipediaUrl = `${config.wikipedia_endpoint}${wikipediaID}`
     let data = await axios.get(wikipediaUrl);
 
     let pageNumber = Object.keys(data.data.query.pages)[0];
@@ -44,7 +45,7 @@ async function getWikipediaID (artist){
       let url = wikiDataRelation[0].url.resource;
       let wikiDataID = getLastPartOfUrl(url);
       // make request to find wikipediaID
-      let wikiDataApiUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${wikiDataID}&format=json&props=sitelinks`;
+      let wikiDataApiUrl = `${config.wikidata_base}w/api.php?action=wbgetentities&ids=${wikiDataID}&format=json&props=sitelinks`;
       let wikiData = await axios.get(wikiDataApiUrl);
       // find the wikipedia-ID from second api-response
       let wikipediaID = wikiData.data.entities[wikiDataID].sitelinks.enwiki.title;

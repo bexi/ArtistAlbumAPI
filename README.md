@@ -27,6 +27,7 @@ Future work:
 * Cashing could be saved in a db instead of locally
   - like Redis
 * Scaling - secure that the api have another setup if one goes down or have too many users
+* Mocka och utöka mer tester 
 
 Motivations for choices
 * Node
@@ -42,6 +43,7 @@ Motivations for choices
 * Memory-Cache
   - Seemed easy to work with
   - No db
+  - (minus - would not work with several servers or cloud resources)
 * Mocha and supertest
   - Mocha: easy to work with
   - Supertest: for testing API parts
