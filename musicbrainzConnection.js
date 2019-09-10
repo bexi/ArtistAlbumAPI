@@ -2,6 +2,7 @@ const axios = require('axios');
 
 const getDescription = require('./wikiConnection');
 const getAlbumCovers = require('./coverArtConnection');
+//const getAlbums = require('./musicConnection');
 
 /**
 * Return Promise {mbid, description, albums}
@@ -14,22 +15,12 @@ async function getArtistInfo (req, res) {
 
   // try making the first API call - musicbrainz
   try{
-    let apiUrl = `http://musicbrainz.org/ws/2/artist/${mbid}?inc=url-rels+release-groups&fmt=json`;
+  let apiUrl = `http://musicbrainz.org/ws/2/artist/${mbid}?inc=url-rels+release-groups&fmt=json`;
     // first api call - fetch artist information from musicbrainz
     artistInformation = await axios.get(apiUrl);
-
   }catch(e){
-    // check all errors and send back the correct status and msg
-    try{
-      if(e.response.data.error == 'Not Found'){
-        res.status(400).send({error: "mbid is not connected to an artist"});
-      }else if(e.response.data.error == 'Invalid mbid.'){
         res.status(400).send({error: "invalid mbid"});
-      }
-    }catch(e){
-      res.status(503).send({error: `Error with musicbrainz api`});
-    }
-    return;
+        return;
   }
   // try making the second and third API calls (WikiData/Wikipedia and coverArtArchive)
   // start api calls (in parallel), await the slowest api call
