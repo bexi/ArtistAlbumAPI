@@ -16,13 +16,13 @@ const getArtistInfo = async (req, res) => {
   // try making the first API call - musicbrainz
   try{
     let apiUrl = `${config.musicbrainz_base}ws/2/artist/${mbid}?inc=url-rels+release-groups&fmt=json`;
-    console.log(apiUrl);
     // first api call - fetch artist information from musicbrainz
     artistInformation = await axios.get(apiUrl);
   }catch(e){
-        res.status(400).send({error: "invalid mbid"});
-        return;
+    res.status(400).send({error: "invalid mbid"});
+    return;
   }
+
   // try making the second and third API calls (WikiData/Wikipedia and coverArtArchive)
   // start api calls (in parallel), await the slowest api call
   let description_promise = getDescription(artistInformation);

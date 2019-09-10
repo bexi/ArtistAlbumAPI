@@ -27,9 +27,9 @@ Future work:
 * Cashing could be saved in a db instead of locally
   - like Redis
 * Scaling - secure that the api have another setup if one goes down or have too many users
-* Mocka och utöka mer tester 
+* Mock tests and make more tests  
 
-Motivations for choices
+Motivations for choices:
 * Node
   - Fast
   - Simple setup
