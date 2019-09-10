@@ -7,6 +7,7 @@ routes.get('/', (req, res) => {
 });
 
 // Returns artist information (mbid, description and albums (title, id, coverImage))
+// time in ms 
 routes.get('/:mbid', cache.cacheMiddleware(30), getArtistInfo);
 
 // All other requests are not handled by the API

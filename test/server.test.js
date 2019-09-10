@@ -133,6 +133,8 @@ describe("Check correctness from valid mbid (obs: will not work if data is updat
 });
 
 describe("Check that more mbid get correct result", function () {
+  this.timeout(10000);
+
   it('should return a correct mbid - håkan hellström', (done) => {
     request(app)
     .get(`/${mbid_hakan}`)
