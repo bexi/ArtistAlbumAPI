@@ -15,7 +15,6 @@ async function getDescription(artist){
 
   }catch(e){
     // If something went wrong in the request(s) then the description property will be null
-    //console.log("Error in getDescription");
     return null;
   }
 }
@@ -52,11 +51,9 @@ async function getWikipediaID (artist){
       return encodeURIComponent(wikipediaID);
 
     }catch(e){
-      //console.log("Error with the wikidata request. Error: \n", e);
       throw new Error({error: 'Error in wikidata request'});
     }
   }
-  //console.log('Error: No wikipediaID was found from the artist information');
   throw new Error({error: 'No wikipediaID was found'})
 }
 
