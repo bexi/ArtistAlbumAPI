@@ -21,7 +21,6 @@ const getAlbumCovers = async (artist) => {
     let albumApiUrls = albums.map((obj) => `http://coverartarchive.org/release-group/${obj.id}`);
     // make parallel requests to cover art archive API
     covers = await axios.all(albumApiUrls.map(function (i) { return axios(i).catch(error => ({ error })) }));
-
     covers = covers.map(function(cover){
       try{
         image = cover.data.images[0].image;
